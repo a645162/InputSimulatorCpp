@@ -20,15 +20,15 @@
 
 #include <memory>
 #include <iostream>
-#include "xinputsimulatorimpl.h"
-#include "notimplementedexception.h"
+#include "Common/xInputSimulatorImpl.hpp"
+#include "NotImplementedException.hpp"
 
 #ifdef __linux__
 #include "xinputsimulatorimpllinux.h"
 #elif __APPLE__
 #include "xinputsimulatorimplmacos.h"
 #elif _WIN32
-#include "xinputsimulatorimplwin.h"
+#include "Windows/xInputSimulatorImplWin.hpp"
 #endif
 
 class XInputSimulator

@@ -15,8 +15,8 @@ if (UNIX AND NOT APPLE)
     find_library(X_TST Xtst)
     set(EXTRA_LIBS ${X_11} ${X_TST})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES ./src/xinputsimulatorimpllinux.cpp ./src/xinputsimulatorimpllinux.h)
-endif (UNIX AND NOT APPLE)
+    set(PLATFORM_SOURCE_FILES src/Linux/xInputSimulatorImplLinux.cpp src/Linux/xInputSimulatorImplLinux.hpp)
+endif ()
 
 # Apple
 if (APPLE)
@@ -25,31 +25,34 @@ if (APPLE)
     find_library(CORE_FOUNDATION CoreFoundation)
     set(EXTRA_LIBS ${APP_SERVICES_LIBRARY} ${CARBON} ${CORE_FOUNDATION})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES ./src/xinputsimulatorimplmacos.cpp ./src/xinputsimulatorimplmacos.h)
-endif (APPLE)
+    set(PLATFORM_SOURCE_FILES src/macOS/xInputSimulatorImplMacOS.cpp src/macOS/xInputSimulatorImplMacOS.hpp)
+endif ()
 
 # Windows
 if (WIN32)
     #find_library(USER_32 User32.Lib)
     #set(EXTRA_LIBS ${USER_32})
-    set(PLATFORM_SOURCE_FILES ./src/xinputsimulatorimplwin.cpp ./src/xinputsimulatorimplwin.h)
-endif (WIN32)
+    set(PLATFORM_SOURCE_FILES src/Windows/xInputSimulatorImplWin.cpp src/Windows/xInputSimulatorImplWin.hpp)
+endif ()
 
 set(SOURCE_FILES
+        src/NotImplementedException.cpp
+        src/NotImplementedException.hpp
 
-        ./src/main.cpp
+        src/xInputSimulator.cpp
+        src/xInputSimulator.hpp
 
-        ./src/notimplementedexception.cpp
-        ./src/notimplementedexception.h
-
-        ./src/xinputsimulator.cpp
-        ./src/xinputsimulator.h
-
-        ./src/xinputsimulatorimpl.cpp
-        ./src/xinputsimulatorimpl.h
+        src/Common/xInputSimulatorImpl.cpp
+        src/Common/xInputSimulatorImpl.hpp
 
         ${PLATFORM_SOURCE_FILES}
 )
 
-add_executable(XInputSimulator ${SOURCE_FILES})
+set(XInputSimulator_SOURCE_FILES
+        ./src/main.cpp
+
+        ${SOURCE_FILES}
+)
+
+add_executable(XInputSimulator ${XInputSimulator_SOURCE_FILES})
 target_link_libraries(XInputSimulator ${EXTRA_LIBS})

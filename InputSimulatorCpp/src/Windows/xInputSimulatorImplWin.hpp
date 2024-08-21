@@ -20,7 +20,7 @@
 #ifndef XINPUTSIMULATORIMPLWIN_H
 #define XINPUTSIMULATORIMPLWIN_H
 
-#include "xinputsimulatorimpl.h"
+#include "../Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplWin: public XInputSimulatorImpl
 {

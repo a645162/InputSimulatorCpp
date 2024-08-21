@@ -16,7 +16,7 @@
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
-#include "xinputsimulator.h"
+#include "xInputSimulator.hpp"
 
 #ifdef __linux__
 //sleep

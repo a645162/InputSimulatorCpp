@@ -15,9 +15,10 @@
 //    You should have received a copy of the GNU Lesser Public License
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
+#include "NotImplementedException.hpp"
 
-#include "xinputsimulatorimpl.h"
-
-XInputSimulatorImpl::XInputSimulatorImpl()
+NotImplementedException::NotImplementedException()
+    :
+    std::runtime_error("The author was to lazy to implement this function yet...")
 {
 }
