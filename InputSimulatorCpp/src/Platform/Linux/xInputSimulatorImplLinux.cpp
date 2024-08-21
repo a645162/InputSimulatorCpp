@@ -20,7 +20,7 @@
 #include <unistd.h> //usleep
 
 #include "xInputSimulatorImplLinux.hpp"
-#include "../NotImplementedException.hpp"
+#include "../../Utils/NotImplementedException.hpp"
 #include <iostream>
 
 //memset

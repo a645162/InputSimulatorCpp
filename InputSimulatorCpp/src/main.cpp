@@ -16,61 +16,47 @@
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
+
 #include "xInputSimulator.hpp"
-#include "Windows/WindowsKeyboardExtra.hpp"
-
-#ifdef __linux__
-//sleep
-#include <unistd.h>
-#elif __APPLE__
-//sleep
-#include <unistd.h>
-#elif _WIN32
-//sleep
-#include <windows.h>
-
-#endif
-
-using namespace std;
-
-void waitABit();
+#include "Platform/Windows/WindowsKeyboardExtra.hpp"
+#include "Utils/TimeSleep.hpp"
 
 int main() {
-    cout << "Hello World!" << endl;
+    std::cout << "Hello World!" << std::endl;
 
     XInputSimulator &sim = XInputSimulator::getInstance();
 
-    cout << "Mouse Simulation:" << endl;
-    waitABit();
+    std::cout << "Mouse Simulation:" << std::endl;
+    TimeSleep();
     sim.mouseMoveTo(500, 400);
-    waitABit();
+    TimeSleep();
     sim.mouseMoveRelative(400, -100);
-    waitABit();
+    TimeSleep();
     sim.mouseDown(XIS::LEFT_MOUSE_BUTTON);
-    waitABit();
+    TimeSleep();
     sim.mouseMoveRelative(0, 300);
-    waitABit();
+    TimeSleep();
     sim.mouseUp(XIS::LEFT_MOUSE_BUTTON);
-    waitABit();
+    TimeSleep();
     //scroll down and up
     sim.mouseScrollY(10);
-    waitABit();
+    TimeSleep();
     sim.mouseScrollY(-10);
     //scroll left and right
-    waitABit();
+    TimeSleep();
     sim.mouseScrollX(10);
-    waitABit();
+    TimeSleep();
     sim.mouseScrollX(-10);
 
-    cout << "Keyboard Simulation:" << endl;
+    std::cout << "Keyboard Simulation:" << std::endl;
 #if defined(__linux__) || defined(__APPLE__)
     char anA = 'a';
     cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << endl;
     std::cout << std::endl;
-    waitABit();
+    TimeSleep();
     sim.keyClick(sim.charToKeyCode(anA));
     std::cout << std::endl;
-    waitABit();
+    TimeSleep();
     sim.keySequence(" Simple sentence Here 123 ");
 #elif _WIN32
     // Ctrl+A
@@ -79,21 +65,9 @@ int main() {
     sim.keyUp(VK_CONTROL);
 #endif
 
-    waitABit();
+    TimeSleep();
 
-    cout << "Done!" << endl;
+    std::cout << "Done!" << std::endl;
 
     return 0;
-}
-
-void waitABit() {
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-#ifdef __linux__
-    sleep(1);
-#elif __APPLE__
-    sleep(1);
-#elif _WIN32
-    Sleep(1000);
-#endif
-
 }

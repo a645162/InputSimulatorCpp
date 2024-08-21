@@ -21,14 +21,14 @@
 #include <memory>
 #include <iostream>
 #include "Common/xInputSimulatorImpl.hpp"
-#include "NotImplementedException.hpp"
+#include "Utils/NotImplementedException.hpp"
 
 #ifdef __linux__
-#include "Linux/xInputSimulatorImplLinux.hpp"
+#include "Platform/Linux/xInputSimulatorImplLinux.hpp"
 #elif __APPLE__
-#include "macOS/xInputSimulatorImplMacOS.hpp"
+#include "Platform/macOS/xInputSimulatorImplMacOS.hpp"
 #elif _WIN32
-#include "Windows/xInputSimulatorImplWin.hpp"
+#include "Platform/Windows/xInputSimulatorImplWindows.hpp"
 #endif
 
 class XInputSimulator

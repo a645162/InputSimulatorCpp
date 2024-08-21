@@ -1,10 +1,14 @@
 // Some Extra Macros and Function for Windows Keyboard
 // Created by Haomin Kong on 2024/8/22.
-// https://github.com/a645162
+// https://github.com/a645162/InputSimulatorCpp
 // Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.
+
+#ifdef _WIN32
 
 #ifndef INPUT_SIMULATOR_CPP_WINDOWS_KEYBOARD_EXTRA_H
 #define INPUT_SIMULATOR_CPP_WINDOWS_KEYBOARD_EXTRA_H
+
+#include <Windows.h>
 
 // Most was defined in `WinUser.h`
 /*
@@ -20,3 +24,5 @@
 #define VK_Z 0x5A
 
 #endif //INPUT_SIMULATOR_CPP_WINDOWS_KEYBOARD_EXTRA_H
+
+#endif //_WIN32

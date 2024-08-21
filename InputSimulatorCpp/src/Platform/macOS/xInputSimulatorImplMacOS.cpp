@@ -24,7 +24,7 @@
 #include <unistd.h>
 
 #include "xInputSimulatorImplMacOS.hpp"
-#include "../NotImplementedException.hpp"
+#include "../../Utils/NotImplementedException.hpp"
 
 //#include <QDebug>
 

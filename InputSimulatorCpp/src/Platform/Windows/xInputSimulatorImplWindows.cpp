@@ -18,39 +18,34 @@
 
 #ifdef _WIN32
 
-#include "xInputSimulatorImplWin.hpp"
-#include "../NotImplementedException.hpp"
+#include "xInputSimulatorImplWindows.hpp"
+#include "../../Utils/NotImplementedException.hpp"
 
 #include <Windows.h>
 
 #define KEYEVENTF_KEYDOWN 0
 #define MOUSEEVENTF_HWHEEL 0x01000
 
-XInputSimulatorImplWin::XInputSimulatorImplWin()
-{
+XInputSimulatorImplWin::XInputSimulatorImplWin() {
     this->initCurrentMousePosition();
 }
 
-void XInputSimulatorImplWin::initCurrentMousePosition()
-{
+void XInputSimulatorImplWin::initCurrentMousePosition() {
     POINT p;
-    if (GetCursorPos(&p))
-    {
+    if (GetCursorPos(&p)) {
         this->currentX = p.x;
         this->currentY = p.y;
     }
 }
 
-void XInputSimulatorImplWin::mouseMoveTo(int x, int y)
-{
+void XInputSimulatorImplWin::mouseMoveTo(int x, int y) {
     SetCursorPos(x, y);
 
     this->currentX = x;
     this->currentY = y;
 }
 
-void XInputSimulatorImplWin::mouseMoveRelative(int x, int y)
-{
+void XInputSimulatorImplWin::mouseMoveRelative(int x, int y) {
     int newX = this->currentX + x;
     int newY = this->currentY + y;
 
@@ -60,45 +55,37 @@ void XInputSimulatorImplWin::mouseMoveRelative(int x, int y)
     this->currentY = newY;
 }
 
-
-void XInputSimulatorImplWin::mouseDown(int button)
-{
-    INPUT in={0};
+void XInputSimulatorImplWin::mouseDown(int button) {
+    INPUT in = {0};
     in.type = INPUT_MOUSE;
     in.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
-    SendInput(1,&in,sizeof(INPUT));
-    ZeroMemory(&in,sizeof(INPUT));
+    SendInput(1, &in, sizeof(INPUT));
+    ZeroMemory(&in, sizeof(INPUT));
 }
 
-
-void XInputSimulatorImplWin::mouseUp(int button)
-{
-    INPUT in={0};
+void XInputSimulatorImplWin::mouseUp(int button) {
+    INPUT in = {0};
     in.type = INPUT_MOUSE;
     in.mi.dwFlags = MOUSEEVENTF_LEFTUP;
-    SendInput(1,&in,sizeof(INPUT));
-    ZeroMemory(&in,sizeof(INPUT));
+    SendInput(1, &in, sizeof(INPUT));
+    ZeroMemory(&in, sizeof(INPUT));
 }
 
-
-void XInputSimulatorImplWin::mouseClick(int button)
-{
+void XInputSimulatorImplWin::mouseClick(int button) {
     this->mouseDown(button);
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     this->mouseUp(button);
 }
 
-void XInputSimulatorImplWin::mouseScrollX(int length)
-{
+void XInputSimulatorImplWin::mouseScrollX(int length) {
     int scrollDirection = 1 * 50; // 1 left -1 right
 
-    if(length < 0){
+    if (length < 0) {
         length *= -1;
         scrollDirection *= -1;
     }
 
-    for(int cnt = 0; cnt < length; cnt++)
-    {
+    for (int cnt = 0; cnt < length; cnt++) {
         INPUT in;
         in.type = INPUT_MOUSE;
         in.mi.dx = 0;
@@ -107,21 +94,19 @@ void XInputSimulatorImplWin::mouseScrollX(int length)
         in.mi.time = 0;
         in.mi.dwExtraInfo = 0;
         in.mi.mouseData = scrollDirection;// WHEEL_DELTA;
-        SendInput(1,&in,sizeof(in));
+        SendInput(1, &in, sizeof(in));
     }
 }
 
-void XInputSimulatorImplWin::mouseScrollY(int length)
-{
+void XInputSimulatorImplWin::mouseScrollY(int length) {
     int scrollDirection = -1 * 50; // 1 up -1 down
 
-    if(length < 0){
+    if (length < 0) {
         length *= -1;
         scrollDirection *= -1;
     }
 
-    for(int cnt = 0; cnt < length; cnt++)
-    {
+    for (int cnt = 0; cnt < length; cnt++) {
         INPUT in;
         in.type = INPUT_MOUSE;
         in.mi.dx = 0;
@@ -130,33 +115,29 @@ void XInputSimulatorImplWin::mouseScrollY(int length)
         in.mi.time = 0;
         in.mi.dwExtraInfo = 0;
         in.mi.mouseData = scrollDirection;// WHEEL_DELTA;
-        SendInput(1,&in,sizeof(in));
+        SendInput(1, &in, sizeof(in));
     }
 }
 
-void XInputSimulatorImplWin::keyDown(int key)
-{
+void XInputSimulatorImplWin::keyDown(int key) {
     keybd_event(static_cast<BYTE>(key), 0, KEYEVENTF_KEYDOWN, 0);
 }
 
-void XInputSimulatorImplWin::keyUp(int key)
-{
+void XInputSimulatorImplWin::keyUp(int key) {
     keybd_event(static_cast<BYTE>(key), 0, KEYEVENTF_KEYUP, 0);
 }
 
-void XInputSimulatorImplWin::keyClick(int key)
-{
+void XInputSimulatorImplWin::keyClick(int key) {
     keyDown(key);
     keyUp(key);
 }
 
-int XInputSimulatorImplWin::charToKeyCode(char key_char)
-{
+int XInputSimulatorImplWin::charToKeyCode(char key_char) {
     throw NotImplementedException();
 }
-void XInputSimulatorImplWin::keySequence(const std::string &sequence)
-{
-    for (char ch : sequence) {
+
+void XInputSimulatorImplWin::keySequence(const std::string &sequence) {
+    for (char ch: sequence) {
         int key_code = charToKeyCode(ch);
         keyClick(key_code);
     }

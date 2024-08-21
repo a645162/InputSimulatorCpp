@@ -5,27 +5,23 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCE_DIR "./src")
 
-# Linux
+# Linux X11(X.Org)
 if (UNIX AND NOT APPLE)
     find_library(X_11 X11)
     find_library(X_TST Xtst)
 
     set(EXTRA_LIBS ${X_11} ${X_TST})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
-    set(PLATFORM_DIR "${SOURCE_DIR}/Linux")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 endif ()
 
-# Apple
+# Apple macOS
 if (APPLE)
     find_library(APP_SERVICES ApplicationServices)
     find_library(CARBON Carbon)
     find_library(CORE_FOUNDATION CoreFoundation)
 
     set(EXTRA_LIBS ${APP_SERVICES_LIBRARY} ${CARBON} ${CORE_FOUNDATION})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
-    set(PLATFORM_DIR "${SOURCE_DIR}/macOS")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
 endif ()
 
 # Windows
@@ -33,28 +29,13 @@ if (WIN32)
     # find_library(USER_32 User32.Lib)
 
     # set(EXTRA_LIBS ${USER_32})
-    
-    set(PLATFORM_DIR "${SOURCE_DIR}/Windows")
 endif ()
 
-file(GLOB_RECURSE PLATFORM_SOURCE_FILES
-        "${PLATFORM_DIR}/*.cpp"
-        "${PLATFORM_DIR}/*.hpp"
-        "${PLATFORM_DIR}/*.c"
-        "${PLATFORM_DIR}/*.h"
-)
-
-set(SOURCE_FILES
-        src/NotImplementedException.cpp
-        src/NotImplementedException.hpp
-
-        src/xInputSimulator.cpp
-        src/xInputSimulator.hpp
-
-        src/Common/xInputSimulatorImpl.cpp
-        src/Common/xInputSimulatorImpl.hpp
-
-        ${PLATFORM_SOURCE_FILES}
+file(GLOB_RECURSE SOURCE_FILES
+        "${SOURCE_DIR}/*.cpp"
+        "${SOURCE_DIR}/*.hpp"
+        "${SOURCE_DIR}/*.c"
+        "${SOURCE_DIR}/*.h"
 )
 
 set(XInputSimulator_SOURCE_FILES
