@@ -3,19 +3,16 @@ project(InputSimulatorCppLib)
 
 set(CMAKE_CXX_STANDARD 17)
 
-#add_library(
-#        ${PROJECT_NAME} SHARED
-#
-#        library.cpp
-#)
-
 # Linux
 if (UNIX AND NOT APPLE)
     find_library(X_11 X11)
     find_library(X_TST Xtst)
     set(EXTRA_LIBS ${X_11} ${X_TST})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES src/Linux/xInputSimulatorImplLinux.cpp src/Linux/xInputSimulatorImplLinux.hpp)
+    set(PLATFORM_SOURCE_FILES
+            src/Linux/xInputSimulatorImplLinux.cpp
+            src/Linux/xInputSimulatorImplLinux.hpp
+    )
 endif ()
 
 # Apple
@@ -25,14 +22,23 @@ if (APPLE)
     find_library(CORE_FOUNDATION CoreFoundation)
     set(EXTRA_LIBS ${APP_SERVICES_LIBRARY} ${CARBON} ${CORE_FOUNDATION})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES src/macOS/xInputSimulatorImplMacOS.cpp src/macOS/xInputSimulatorImplMacOS.hpp)
+    set(PLATFORM_SOURCE_FILES
+            src/macOS/xInputSimulatorImplMacOS.cpp
+            src/macOS/xInputSimulatorImplMacOS.hpp
+    )
 endif ()
 
 # Windows
 if (WIN32)
     #find_library(USER_32 User32.Lib)
     #set(EXTRA_LIBS ${USER_32})
-    set(PLATFORM_SOURCE_FILES src/Windows/xInputSimulatorImplWin.cpp src/Windows/xInputSimulatorImplWin.hpp)
+    set(PLATFORM_SOURCE_FILES
+            src/Windows/xInputSimulatorImplWin.cpp
+            src/Windows/xInputSimulatorImplWin.hpp
+
+            src/Windows/WindowsKeyboardExtra.cpp
+            src/Windows/WindowsKeyboardExtra.hpp
+    )
 endif ()
 
 set(SOURCE_FILES
@@ -54,5 +60,15 @@ set(XInputSimulator_SOURCE_FILES
         ${SOURCE_FILES}
 )
 
+# XInputSimulator executable(GitHub OpenSource Project)
 add_executable(XInputSimulator ${XInputSimulator_SOURCE_FILES})
 target_link_libraries(XInputSimulator ${EXTRA_LIBS})
+
+# InputSimulatorCppLib library(This Project)
+add_library(
+        ${PROJECT_NAME} SHARED
+
+        ./src/library.cpp
+        ./src/library.hpp
+)
+target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS})

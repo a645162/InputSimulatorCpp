@@ -18,8 +18,8 @@
 
 #ifdef __APPLE__
 
-#ifndef XINPUTSIMULATORIMPLMACOS_H
-#define XINPUTSIMULATORIMPLMACOS_H
+#ifndef X_INPUT_SIMULATOR_IMPL_MACOS_H
+#define X_INPUT_SIMULATOR_IMPL_MACOS_H
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreGraphics/CoreGraphics.h>
@@ -60,5 +60,5 @@ public:
 };
 
 
-#endif // XINPUTSIMULATORIMPLMACOS_H
-#endif //apple
+#endif // X_INPUT_SIMULATOR_IMPL_MACOS_H
+#endif // __APPLE__

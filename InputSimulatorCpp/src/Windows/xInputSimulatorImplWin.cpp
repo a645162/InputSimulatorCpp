@@ -20,10 +20,10 @@
 
 #include "xInputSimulatorImplWin.hpp"
 #include "../NotImplementedException.hpp"
-#include <iostream>
 
 #include <Windows.h>
 
+#define KEYEVENTF_KEYDOWN 0
 #define MOUSEEVENTF_HWHEEL 0x01000
 
 XInputSimulatorImplWin::XInputSimulatorImplWin()
@@ -87,7 +87,7 @@ void XInputSimulatorImplWin::mouseClick(int button)
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     this->mouseUp(button);
 }
-//kajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjf
+
 void XInputSimulatorImplWin::mouseScrollX(int length)
 {
     int scrollDirection = 1 * 50; // 1 left -1 right
@@ -136,17 +136,18 @@ void XInputSimulatorImplWin::mouseScrollY(int length)
 
 void XInputSimulatorImplWin::keyDown(int key)
 {
-    throw NotImplementedException();
+    keybd_event(static_cast<BYTE>(key), 0, KEYEVENTF_KEYDOWN, 0);
 }
 
 void XInputSimulatorImplWin::keyUp(int key)
 {
-    throw NotImplementedException();
+    keybd_event(static_cast<BYTE>(key), 0, KEYEVENTF_KEYUP, 0);
 }
 
 void XInputSimulatorImplWin::keyClick(int key)
 {
-    throw NotImplementedException();
+    keyDown(key);
+    keyUp(key);
 }
 
 int XInputSimulatorImplWin::charToKeyCode(char key_char)
@@ -155,7 +156,10 @@ int XInputSimulatorImplWin::charToKeyCode(char key_char)
 }
 void XInputSimulatorImplWin::keySequence(const std::string &sequence)
 {
-    throw NotImplementedException();
+    for (char ch : sequence) {
+        int key_code = charToKeyCode(ch);
+        keyClick(key_code);
+    }
 }
 
-#endif //win
+#endif //_WIN32

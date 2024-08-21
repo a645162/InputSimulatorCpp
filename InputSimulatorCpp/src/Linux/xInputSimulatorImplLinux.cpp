@@ -200,4 +200,4 @@ void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
 }
 
 
-#endif // linux
+#endif // __linux__

@@ -17,6 +17,7 @@
 
 #include <iostream>
 #include "xInputSimulator.hpp"
+#include "Windows/WindowsKeyboardExtra.hpp"
 
 #ifdef __linux__
 //sleep
@@ -27,20 +28,21 @@
 #elif _WIN32
 //sleep
 #include <windows.h>
+
 #endif
 
 using namespace std;
 
 void waitABit();
 
-int main()
-{
+int main() {
     cout << "Hello World!" << endl;
 
     XInputSimulator &sim = XInputSimulator::getInstance();
 
+    cout << "Mouse Simulation:" << endl;
     waitABit();
-    sim.mouseMoveTo(500,400);
+    sim.mouseMoveTo(500, 400);
     waitABit();
     sim.mouseMoveRelative(400, -100);
     waitABit();
@@ -60,8 +62,9 @@ int main()
     waitABit();
     sim.mouseScrollX(-10);
 
+    cout << "Keyboard Simulation:" << endl;
 #if defined(__linux__) || defined(__APPLE__)
-	char anA = 'a';
+    char anA = 'a';
     cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << endl;
     std::cout << std::endl;
     waitABit();
@@ -70,23 +73,27 @@ int main()
     waitABit();
     sim.keySequence(" Simple sentence Here 123 ");
 #elif _WIN32
-	//not implemented
+    // Ctrl+A
+    sim.keyDown(VK_CONTROL);
+    sim.keyClick(VK_A);
+    sim.keyUp(VK_CONTROL);
 #endif
 
-
     waitABit();
+
+    cout << "Done!" << endl;
+
     return 0;
 }
 
-void waitABit()
-{
+void waitABit() {
     //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 #ifdef __linux__
-	sleep(1);
+    sleep(1);
 #elif __APPLE__
-	sleep(1);
+    sleep(1);
 #elif _WIN32
-	Sleep(1000);
+    Sleep(1000);
 #endif
-    
+
 }

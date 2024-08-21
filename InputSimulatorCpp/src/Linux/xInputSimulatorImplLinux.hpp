@@ -17,8 +17,8 @@
 
 #ifdef __linux__
 
-#ifndef XINPUTSIMULATORIMPLLINUX_H
-#define XINPUTSIMULATORIMPLLINUX_H
+#ifndef X_INPUT_SIMULATOR_IMPL_LINUX_H
+#define X_INPUT_SIMULATOR_IMPL_LINUX_H
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -62,6 +62,6 @@ public:
 
 };
 
-#endif // XINPUTSIMULATORIMPLLINUX_H
+#endif // X_INPUT_SIMULATOR_IMPL_LINUX_H
 
-#endif // linux
+#endif // __linux__
