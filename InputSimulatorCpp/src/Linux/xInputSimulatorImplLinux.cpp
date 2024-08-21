@@ -19,8 +19,8 @@
 
 #include <unistd.h> //usleep
 
-#include "xinputsimulatorimpllinux.h"
-#include "notimplementedexception.h"
+#include "xInputSimulatorImplLinux.hpp"
+#include "../NotImplementedException.hpp"
 #include <iostream>
 
 //memset

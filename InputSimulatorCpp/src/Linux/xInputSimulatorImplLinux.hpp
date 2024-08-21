@@ -27,7 +27,7 @@
 
 #undef Bool //fix C #define Bool int in C++ Qt moc from x11
 
-#include "xinputsimulatorimpl.h"
+#include "../Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplLinux : public XInputSimulatorImpl
 {

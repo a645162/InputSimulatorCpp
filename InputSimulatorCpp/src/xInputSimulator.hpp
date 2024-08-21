@@ -24,9 +24,9 @@
 #include "NotImplementedException.hpp"
 
 #ifdef __linux__
-#include "xinputsimulatorimpllinux.h"
+#include "Linux/xInputSimulatorImplLinux.hpp"
 #elif __APPLE__
-#include "xinputsimulatorimplmacos.h"
+#include "macOS/xInputSimulatorImplMacOS.hpp"
 #elif _WIN32
 #include "Windows/xInputSimulatorImplWin.hpp"
 #endif

@@ -25,7 +25,7 @@
 #include <CoreGraphics/CoreGraphics.h>
 #include <Carbon/Carbon.h> /* For kVK_ constants, and TIS functions. */
 
-#include "xinputsimulatorimpl.h"
+#include "../Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplMacOs : public XInputSimulatorImpl
 {
