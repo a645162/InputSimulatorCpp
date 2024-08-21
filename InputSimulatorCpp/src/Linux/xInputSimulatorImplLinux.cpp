@@ -27,8 +27,6 @@
 #include <stdio.h>
 #include <cstring>
 
-
-
 XInputSimulatorImplLinux::XInputSimulatorImplLinux()
 {
     if((display = XOpenDisplay(NULL)) == NULL) {
@@ -71,7 +69,6 @@ void XInputSimulatorImplLinux::mouseMoveTo(int x, int y)
     XWarpPointer(display, None, root, 0, 0, 0, 0, x, y);
     XFlush(display);
 
-
     XEvent event;
     memset(&event, 0, sizeof (event));
 }
@@ -104,7 +101,7 @@ void XInputSimulatorImplLinux::mouseClick(int button)
     usleep(100);
     this->mouseUp(button);
 }
-//kajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjfkajsdölfkjasdölfkjasldökfjaölsdkjfalsdkjfalskdjfaldskjf
+
 void XInputSimulatorImplLinux::mouseScrollX(int length)
 {
     int button;
@@ -173,6 +170,7 @@ int XInputSimulatorImplLinux::charToKeyCode(char key_char)
 
     return keyCode;
 }
+
 void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
 {
     std::cout << "key seq: " << sequence << std::endl;
@@ -192,7 +190,6 @@ void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
         else {
             this->keyClick(keyCode);
         }
-
 
         std::cout << std::endl;
     }

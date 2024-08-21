@@ -18,6 +18,5 @@
 
 #include "xInputSimulatorImpl.hpp"
 
-XInputSimulatorImpl::XInputSimulatorImpl()
-{
+XInputSimulatorImpl::XInputSimulatorImpl() {
 }

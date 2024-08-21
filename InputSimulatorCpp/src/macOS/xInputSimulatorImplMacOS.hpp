@@ -59,6 +59,5 @@ public:
     virtual void keySequence(const std::string &sequence) override;
 };
 
-
 #endif // X_INPUT_SIMULATOR_IMPL_MACOS_H
 #endif // __APPLE__

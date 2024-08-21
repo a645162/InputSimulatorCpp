@@ -1,9 +1,10 @@
 InputSimulatorCpp
 ===============
+[English](README.md) | [简体中文](README.zh-cn.md)
 
-A Cross Platform (Linux/Mac/Windows) Input Simulator written in C++.
+A Cross Platform (Windows/macOS/Linux) Input Simulator written in C++.
 
-The primary purpose of this library:
+_**The primary purpose of this library:**_
 
 **Mouse**
 

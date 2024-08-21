@@ -28,7 +28,6 @@
 
 //#include <QDebug>
 
-
 XInputSimulatorImplMacOs::XInputSimulatorImplMacOs()
 {
     //TODO
@@ -99,7 +98,6 @@ void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y)
     this->currentY = newY;
 }
 
-//TODO use the button from parameter list
 void XInputSimulatorImplMacOs::mouseDown(int button)
 {
     CGEventRef mouseEv = CGEventCreateMouseEvent(
@@ -113,7 +111,6 @@ void XInputSimulatorImplMacOs::mouseDown(int button)
 
 }
 
-//TODO use the button from parameter list
 void XInputSimulatorImplMacOs::mouseUp(int button)
 {
     CGEventRef mouseEv = CGEventCreateMouseEvent(
@@ -128,7 +125,6 @@ void XInputSimulatorImplMacOs::mouseUp(int button)
 
 void XInputSimulatorImplMacOs::mouseClick(int button)
 {
-    //throw NotImplementedException();
     this->mouseDown(button);
     this->mouseUp(button);
 }
@@ -291,8 +287,6 @@ void XInputSimulatorImplMacOs::keySequence(const std::string &sequence)
         this->keyClick(keyCode);
         std::cout << std::endl;
     }
-
-    //throw NotImplementedException();
 }
 
 #endif // __APPLE__

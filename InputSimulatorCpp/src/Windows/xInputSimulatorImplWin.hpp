@@ -65,7 +65,6 @@ public:
     virtual void keySequence(const std::string &sequence) override;
 };
 
-
 #endif // X_INPUT_SIMULATOR_IMPL_WINDOWS_H
 
 #endif //_WIN32

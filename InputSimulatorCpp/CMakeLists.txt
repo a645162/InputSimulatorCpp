@@ -3,16 +3,17 @@ project(InputSimulatorCppLib)
 
 set(CMAKE_CXX_STANDARD 17)
 
+set(SOURCE_DIR "./src")
+
 # Linux
 if (UNIX AND NOT APPLE)
     find_library(X_11 X11)
     find_library(X_TST Xtst)
+
     set(EXTRA_LIBS ${X_11} ${X_TST})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES
-            src/Linux/xInputSimulatorImplLinux.cpp
-            src/Linux/xInputSimulatorImplLinux.hpp
-    )
+
+    set(PLATFORM_DIR "${SOURCE_DIR}/Linux")
 endif ()
 
 # Apple
@@ -20,26 +21,28 @@ if (APPLE)
     find_library(APP_SERVICES ApplicationServices)
     find_library(CARBON Carbon)
     find_library(CORE_FOUNDATION CoreFoundation)
+
     set(EXTRA_LIBS ${APP_SERVICES_LIBRARY} ${CARBON} ${CORE_FOUNDATION})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-    set(PLATFORM_SOURCE_FILES
-            src/macOS/xInputSimulatorImplMacOS.cpp
-            src/macOS/xInputSimulatorImplMacOS.hpp
-    )
+
+    set(PLATFORM_DIR "${SOURCE_DIR}/macOS")
 endif ()
 
 # Windows
 if (WIN32)
-    #find_library(USER_32 User32.Lib)
-    #set(EXTRA_LIBS ${USER_32})
-    set(PLATFORM_SOURCE_FILES
-            src/Windows/xInputSimulatorImplWin.cpp
-            src/Windows/xInputSimulatorImplWin.hpp
+    # find_library(USER_32 User32.Lib)
 
-            src/Windows/WindowsKeyboardExtra.cpp
-            src/Windows/WindowsKeyboardExtra.hpp
-    )
+    # set(EXTRA_LIBS ${USER_32})
+    
+    set(PLATFORM_DIR "${SOURCE_DIR}/Windows")
 endif ()
+
+file(GLOB_RECURSE PLATFORM_SOURCE_FILES
+        "${PLATFORM_DIR}/*.cpp"
+        "${PLATFORM_DIR}/*.hpp"
+        "${PLATFORM_DIR}/*.c"
+        "${PLATFORM_DIR}/*.h"
+)
 
 set(SOURCE_FILES
         src/NotImplementedException.cpp

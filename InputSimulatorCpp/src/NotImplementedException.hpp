@@ -15,15 +15,14 @@
 //    You should have received a copy of the GNU Lesser Public License
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef NOTIMPLEMENTEDEXCEPTION_H
-#define NOTIMPLEMENTEDEXCEPTION_H
+#ifndef NOT_IMPLEMENTED_EXCEPTION_H
+#define NOT_IMPLEMENTED_EXCEPTION_H
 
 #include <stdexcept>
 
-class NotImplementedException : public std::runtime_error
-{
+class NotImplementedException : public std::runtime_error {
 public:
     NotImplementedException();
 };
 
-#endif // NOTIMPLEMENTEDEXCEPTION_H
+#endif // NOT_IMPLEMENTED_EXCEPTION_H

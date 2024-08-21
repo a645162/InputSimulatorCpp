@@ -60,7 +60,7 @@ void XInputSimulatorImplWin::mouseMoveRelative(int x, int y)
     this->currentY = newY;
 }
 
-//TODO use the button from parameter list
+
 void XInputSimulatorImplWin::mouseDown(int button)
 {
     INPUT in={0};
@@ -70,7 +70,7 @@ void XInputSimulatorImplWin::mouseDown(int button)
     ZeroMemory(&in,sizeof(INPUT));
 }
 
-//TODO use the button from parameter list
+
 void XInputSimulatorImplWin::mouseUp(int button)
 {
     INPUT in={0};
@@ -80,7 +80,7 @@ void XInputSimulatorImplWin::mouseUp(int button)
     ZeroMemory(&in,sizeof(INPUT));
 }
 
-//TODO use the button from parameter list
+
 void XInputSimulatorImplWin::mouseClick(int button)
 {
     this->mouseDown(button);

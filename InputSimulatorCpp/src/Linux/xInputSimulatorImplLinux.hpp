@@ -59,7 +59,6 @@ public:
 
     virtual int charToKeyCode(char key_char) override;
     virtual void keySequence(const std::string &sequence) override;
-
 };
 
 #endif // X_INPUT_SIMULATOR_IMPL_LINUX_H
