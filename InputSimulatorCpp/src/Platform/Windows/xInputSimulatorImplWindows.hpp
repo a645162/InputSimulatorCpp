@@ -1,6 +1,9 @@
 // Input Simulator Windows Implementation
 // Modified by: Haomin Kong
 
+// The Original Author was not implemented Windows version
+// So that I implemented it myself ^_^
+
 // Original License:
 /**
     Copyright 2013 Dustin Bensing

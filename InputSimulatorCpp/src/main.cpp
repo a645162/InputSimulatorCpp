@@ -51,7 +51,7 @@ int main() {
     std::cout << "Keyboard Simulation:" << std::endl;
 #if defined(__linux__) || defined(__APPLE__)
     char anA = 'a';
-    cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << endl;
+    std::cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << std::endl;
     std::cout << std::endl;
     TimeSleep();
     sim.keyClick(sim.charToKeyCode(anA));

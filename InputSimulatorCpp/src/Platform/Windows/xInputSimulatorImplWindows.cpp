@@ -1,20 +1,28 @@
+// Input Simulator Windows Implementation
+// Modified by: Haomin Kong
 
-//    Copyright 2013 Dustin Bensing
+// The Original Author was not implemented Windows version
+// So that I implemented it myself ^_^
 
-//    This file is part of XInputSimulator.
+// Original License:
+/**
+    Copyright 2013 Dustin Bensing
 
-//    XInputSimulator is free software: you can redistribute it and/or modify
-//    it under the terms of the GNU Lesser Public License as published by
-//    the Free Software Foundation, either version 3 of the License, or
-//    any later version.
+    This file is part of XInputSimulator.
 
-//    XInputSimulator is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//    GNU Lesser Public License for more details.
+    XInputSimulator is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
 
-//    You should have received a copy of the GNU Lesser Public License
-//    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
+    XInputSimulator is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser Public License for more details.
+
+    You should have received a copy of the GNU Lesser Public License
+    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 #ifdef _WIN32
 
