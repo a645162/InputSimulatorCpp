@@ -170,9 +170,21 @@ int XInputSimulatorImplWin::charToKeyCode(char key_char) {
 }
 
 void XInputSimulatorImplWin::keySequence(const std::string &sequence) {
-    for (char ch: sequence) {
-        int key_code = charToKeyCode(ch);
-        keyClick(key_code);
+    for (char keyChar: sequence) {
+        const bool isUpper = (keyChar >= 'A' && keyChar <= 'Z');
+        int key_code = charToKeyCode(keyChar);
+
+        if (isUpper) {
+            keyDown(VK_SHIFT);
+            TimeSleep(1);
+            keyClick(key_code);
+            TimeSleep(1);
+            keyUp(VK_SHIFT);
+            TimeSleep(1);
+        } else {
+            keyClick(key_code);
+        }
+
         TimeSleep(5);
     }
 }

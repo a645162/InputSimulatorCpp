@@ -14,15 +14,14 @@
 #define ENABLE_KEYBOARD_SIMULATION_SHORTCUT
 #define ENABLE_KEYBOARD_SIMULATION_TEXT
 
-int main()
-{
+int main() {
     std::cout << "Hello InputSimulatorCpp Example!" << std::endl;
 
 #ifdef DEBUG_MODE
     std::cout << "Debug Mode" << std::endl;
 #endif
 
-    XInputSimulator& sim = XInputSimulator::getInstance();
+    XInputSimulator &sim = XInputSimulator::getInstance();
 
 #ifdef ENABLE_MOUSE_SIMULATION
     std::cout << "Mouse Simulation" << std::endl;
@@ -75,9 +74,9 @@ int main()
 #ifdef ENABLE_KEYBOARD_SIMULATION_TEXT
     constexpr char single_key_char = 'a';
     std::cout
-        << "a: " << static_cast<int>(single_key_char)
-        << " " << sim.charToKeyCode(single_key_char)
-        << std::endl;
+            << "a: " << static_cast<int>(single_key_char)
+            << " " << sim.charToKeyCode(single_key_char)
+            << std::endl;
     std::cout << std::endl;
     TimeSleepSeconds(1);
     sim.keyClick(sim.charToKeyCode(single_key_char));

@@ -3,9 +3,10 @@
 // https://github.com/a645162/InputSimulatorCpp
 // Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.
 
-#ifdef _WIN32
 #ifndef INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_WINDOWS_H
 #define INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_WINDOWS_H
+
+#ifdef _WIN32
 
 #include <Windows.h>
 #include <winuser.h>
@@ -23,5 +24,6 @@
 #define VK_A 0x41
 #define VK_Z 0x5A
 
+#endif // _WIN32
+
 #endif // INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_WINDOWS_H
-#endif

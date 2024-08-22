@@ -24,10 +24,10 @@
     along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef _WIN32
-
 #ifndef X_INPUT_SIMULATOR_IMPL_WINDOWS_H
 #define X_INPUT_SIMULATOR_IMPL_WINDOWS_H
+
+#ifdef _WIN32
 
 #include "InputSimulator/Common/xInputSimulatorImpl.hpp"
 
@@ -68,6 +68,6 @@ public:
     void keySequence(const std::string &sequence) override;
 };
 
-#endif // X_INPUT_SIMULATOR_IMPL_WINDOWS_H
-
 #endif //_WIN32
+
+#endif // X_INPUT_SIMULATOR_IMPL_WINDOWS_H
