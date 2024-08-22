@@ -21,16 +21,16 @@
     along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef __APPLE__
-
 #ifndef X_INPUT_SIMULATOR_IMPL_MACOS_H
 #define X_INPUT_SIMULATOR_IMPL_MACOS_H
+
+#ifdef __APPLE__
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <CoreGraphics/CoreGraphics.h>
 #include <Carbon/Carbon.h> /* For kVK_ constants, and TIS functions. */
 
-#include "../../Common/xInputSimulatorImpl.hpp"
+#include "InputSimulator/Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplMacOs : public XInputSimulatorImpl {
 private:
@@ -74,5 +74,5 @@ public:
     void keySequence(const std::string &sequence) override;
 };
 
-#endif // X_INPUT_SIMULATOR_IMPL_MACOS_H
 #endif // __APPLE__
+#endif // X_INPUT_SIMULATOR_IMPL_MACOS_H

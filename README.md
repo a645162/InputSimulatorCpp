@@ -28,6 +28,14 @@ _**The primary purpose of this library:**_
 | Linux(Wayland) | ❌      |
 | Other          | ❌      |
 
+## Linux
+
+### Ubuntu
+
+```bash
+sudo apt install -y libx11-dev libxtst-dev
+```
+
 ## Thanks
 
 * [pythoneer/XInputSimulator](https://github.com/pythoneer/XInputSimulator)

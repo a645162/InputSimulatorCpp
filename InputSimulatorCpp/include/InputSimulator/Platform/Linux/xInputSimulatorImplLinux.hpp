@@ -21,10 +21,10 @@
     along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef __linux__
-
 #ifndef X_INPUT_SIMULATOR_IMPL_LINUX_H
 #define X_INPUT_SIMULATOR_IMPL_LINUX_H
+
+#ifdef __linux__
 
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -33,12 +33,12 @@
 
 #undef Bool //fix C #define Bool int in C++ Qt moc from x11
 
-#include "../../Common/xInputSimulatorImpl.hpp"
+#include "InputSimulator/Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplLinux : public XInputSimulatorImpl
 {
 private:
-    Display *display;
+    Display* display;
     Window root;
     XEvent event;
 
@@ -49,24 +49,24 @@ private:
 
 public:
     XInputSimulatorImplLinux();
-    //~XInputSimulatorImplLinux(){ delete display; }
+    ~XInputSimulatorImplLinux() override;
 
-    virtual void mouseMoveTo(int x, int y) override;
-    virtual void mouseMoveRelative(int x, int y) override;
-    virtual void mouseDown(int button) override;
-    virtual void mouseUp(int button) override;
-    virtual void mouseClick(int button) override;
-    virtual void mouseScrollX(int length) override;
-    virtual void mouseScrollY(int length) override;
+    void mouseMoveTo(int x, int y) override;
+    void mouseMoveRelative(int x, int y) override;
+    void mouseDown(int button) override;
+    void mouseUp(int button) override;
+    void mouseClick(int button) override;
+    void mouseScrollX(int length) override;
+    void mouseScrollY(int length) override;
 
-    virtual void keyDown(int key) override;
-    virtual void keyUp(int key) override;
-    virtual void keyClick(int key) override;
+    void keyDown(int key) override;
+    void keyUp(int key) override;
+    void keyClick(int key) override;
 
-    virtual int charToKeyCode(char key_char) override;
-    virtual void keySequence(const std::string &sequence) override;
+    int charToKeyCode(char key_char) override;
+    void keySequence(const std::string& sequence) override;
 };
 
-#endif // X_INPUT_SIMULATOR_IMPL_LINUX_H
-
 #endif // __linux__
+
+#endif // X_INPUT_SIMULATOR_IMPL_LINUX_H

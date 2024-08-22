@@ -14,14 +14,15 @@
 #define ENABLE_KEYBOARD_SIMULATION_SHORTCUT
 #define ENABLE_KEYBOARD_SIMULATION_TEXT
 
-int main() {
+int main()
+{
     std::cout << "Hello InputSimulatorCpp Example!" << std::endl;
 
 #ifdef DEBUG_MODE
     std::cout << "Debug Mode" << std::endl;
 #endif
 
-    XInputSimulator &sim = XInputSimulator::getInstance();
+    XInputSimulator& sim = XInputSimulator::getInstance();
 
 #ifdef ENABLE_MOUSE_SIMULATION
     std::cout << "Mouse Simulation" << std::endl;
@@ -50,7 +51,15 @@ int main() {
 #ifdef ENABLE_KEYBOARD_SIMULATION
     std::cout << "Keyboard Simulation" << std::endl;
 #ifdef ENABLE_KEYBOARD_SIMULATION_SHORTCUT
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__)
+    // Ctrl+A
+    sim.keyDown(XK_Control_L);
+    TimeSleep(1);
+    sim.keyClick(38);
+    TimeSleep(1);
+    sim.keyUp(XK_Control_L);
+    TimeSleep(1);
+#elif defined(__APPLE__)
     // Ctrl+A
     sim.keyDown(KEY_COMMAND);
     sim.keyClick(KEY_A);
@@ -64,14 +73,18 @@ int main() {
 #endif // ENABLE_KEYBOARD_SIMULATION
 
 #ifdef ENABLE_KEYBOARD_SIMULATION_TEXT
-    char anA = 'a';
-    std::cout << "a: " << (int) anA << " " << sim.charToKeyCode(anA) << std::endl;
+    constexpr char single_key_char = 'a';
+    std::cout
+        << "a: " << static_cast<int>(single_key_char)
+        << " " << sim.charToKeyCode(single_key_char)
+        << std::endl;
     std::cout << std::endl;
-    TimeSleepSeconds();
-    sim.keyClick(sim.charToKeyCode(anA));
+    TimeSleepSeconds(1);
+    sim.keyClick(sim.charToKeyCode(single_key_char));
     std::cout << std::endl;
-    TimeSleepSeconds();
-    sim.keySequence(" Simple sentence Here 123 ");
+    TimeSleepSeconds(1);
+
+    sim.keySequence(" Simple sentence Here 123 !");
 #endif // ENABLE_KEYBOARD_SIMULATION_TEXT
 #endif // ENABLE_KEYBOARD_SIMULATION
 
