@@ -31,6 +31,7 @@ _**The primary purpose of this library:**_
 ## Thanks
 
 * [pythoneer/XInputSimulator](https://github.com/pythoneer/XInputSimulator)
+* [usagi/libWRP-key](https://github.com/usagi/libWRP-key)
 
 ## License
 

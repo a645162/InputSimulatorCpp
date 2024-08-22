@@ -7,6 +7,8 @@
 #ifndef INPUT_SIMULATOR_CPP_MACOS_NATIVE_KEYBOARD_KEY_CODE_H
 #define INPUT_SIMULATOR_CPP_MACOS_NATIVE_KEYBOARD_KEY_CODE_H
 
+#include "HIToolbox.Events.KeyCode.hpp"
+
 // Define the native keyboard key codes for macOS
 
 // Main keyboard keys

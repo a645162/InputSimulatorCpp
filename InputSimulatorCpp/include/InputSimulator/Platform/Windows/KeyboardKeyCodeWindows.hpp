@@ -8,7 +8,7 @@
 #define INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_WINDOWS_H
 
 #include <Windows.h>
-#include <WinUser.h>
+#include <winuser.h>
 
 // Most was defined in `WinUser.h`
 /*
