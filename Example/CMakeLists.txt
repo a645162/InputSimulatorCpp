@@ -27,3 +27,14 @@ target_link_libraries(
         ${PROJECT_NAME} PRIVATE
         InputSimulatorCore
 )
+
+# Windows Extra Build Options
+if (WIN32)
+    if (MINGW)
+        target_compile_options(${PROJECT_NAME} PRIVATE -std=c++11)
+    endif (MINGW)
+
+    if (MSVC)
+        target_compile_options(${PROJECT_NAME} PRIVATE /utf-8)
+    endif (MSVC)
+endif (WIN32)

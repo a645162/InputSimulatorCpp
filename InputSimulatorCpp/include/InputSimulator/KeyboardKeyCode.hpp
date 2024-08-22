@@ -1,13 +1,14 @@
-//
-// Created by 孔昊旻 on 2024/8/22.
-//
+// Keyboard Macros and Function
+// Created by Haomin Kong on 2024/8/23.
+// https://github.com/a645162/InputSimulatorCpp
+// Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.
 
 #ifndef INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_H
 #define INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_H
 
 #ifdef _WIN32
 
-#include "Platform/macOS/KeyboardKeyCodeWindows.hpp"
+#include "Platform/Windows/KeyboardKeyCodeWindows.hpp"
 
 #elif __APPLE__
 
@@ -15,7 +16,7 @@
 
 #elif __linux__
 
-#include "Platform/macOS/KeyboardKeyCodeLinux.hpp"
+#include "Platform/Linux/KeyboardKeyCodeLinux.hpp"
 
 #endif
 

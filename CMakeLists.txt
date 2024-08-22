@@ -21,6 +21,9 @@ option(BUILD_SHARED_LIBS "Build dynamic library." OFF)
 set(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH};${CMAKE_CURRENT_SOURCE_DIR}/CMake")
 # message(STATUS "CMAKE_MODULE_PATH: ${CMAKE_MODULE_PATH}")
 
+include(DebugMode)
+debug_mode_macro()
+
 include(CheckCMakeVersion)
 check_cmake_version()
 

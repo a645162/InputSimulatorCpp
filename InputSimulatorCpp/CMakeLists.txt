@@ -64,12 +64,21 @@ file(GLOB_RECURSE SOURCE_FILES
 )
 #message(STATUS "Source Files: ${SOURCE_FILES}")
 
+# For CLion(Not necessary)
+file(GLOB_RECURSE HEADER_FILES
+        "${INPUT_SIMULATOR_INCLUDE_DIRS}/*.cpp"
+        "${INPUT_SIMULATOR_INCLUDE_DIRS}/*.hpp"
+        "${INPUT_SIMULATOR_INCLUDE_DIRS}/*.c"
+        "${INPUT_SIMULATOR_INCLUDE_DIRS}/*.h"
+)
+
 include_directories(${INPUT_SIMULATOR_INCLUDE_DIRS})
 
 # Core Lib
 add_library(
         ${NAME_CORE_LIB} ${LIB_TYPE}
 
+        ${HEADER_FILES}
         ${SOURCE_FILES}
 )
 target_link_libraries(${NAME_CORE_LIB} ${EXTRA_LIBS})

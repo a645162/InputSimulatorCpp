@@ -2,6 +2,9 @@
 // Created by Haomin Kong on 2024/8/22.
 //
 
+#define ENABLE_MOUSE_SIMULATION
+#define ENABLE_KEYBOARD_SIMULATION
+
 #include <iostream>
 
 #include "InputSimulator/xInputSimulator.hpp"
@@ -9,11 +12,16 @@
 #include "InputSimulator/Utils/TimeSleep.hpp"
 
 int main() {
-    std::cout << "Hello World!" << std::endl;
+    std::cout << "Hello InputSimulatorCpp Example!" << std::endl;
+
+#ifdef DEBUG_MODE
+    std::cout << "Debug Mode" << std::endl;
+#endif
 
     XInputSimulator &sim = XInputSimulator::getInstance();
 
-    std::cout << "Mouse Simulation:" << std::endl;
+#ifdef ENABLE_MOUSE_SIMULATION
+    std::cout << "Mouse Simulation" << std::endl;
     TimeSleepSeconds();
     sim.mouseMoveTo(500, 400);
     TimeSleepSeconds();
@@ -34,8 +42,10 @@ int main() {
     sim.mouseScrollX(10);
     TimeSleepSeconds();
     sim.mouseScrollX(-10);
+#endif // ENABLE_MOUSE_SIMULATION
 
-    std::cout << "Keyboard Simulation:" << std::endl;
+#ifdef ENABLE_KEYBOARD_SIMULATION
+    std::cout << "Keyboard Simulation" << std::endl;
 #if defined(__linux__) || defined(__APPLE__)
     char anA = 'a';
     std::cout << "a: " << (int) anA << " " << sim.charToKeyCode(anA) << std::endl;
@@ -55,7 +65,8 @@ int main() {
     sim.keyDown(VK_CONTROL);
     sim.keyClick(VK_A);
     sim.keyUp(VK_CONTROL);
-#endif
+#endif // __linux__ || __APPLE__ || _WIN32
+#endif // ENABLE_KEYBOARD_SIMULATION
 
     TimeSleepSeconds();
 

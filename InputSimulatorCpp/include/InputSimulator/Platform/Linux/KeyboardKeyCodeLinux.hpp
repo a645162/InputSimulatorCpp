@@ -1,4 +1,4 @@
-// Keyboard Macros and Function for Linux Keyboard
+// Keyboard Macros and Function for Linux
 // Created by Haomin Kong on 2024/8/23.
 // https://github.com/a645162/InputSimulatorCpp
 // Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.

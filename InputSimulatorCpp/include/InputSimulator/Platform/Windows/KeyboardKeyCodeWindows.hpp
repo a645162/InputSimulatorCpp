@@ -1,4 +1,4 @@
-// Keyboard Macros and Function for Windows Keyboard
+// Keyboard Macros and Function for Windows
 // Created by Haomin Kong on 2024/8/22.
 // https://github.com/a645162/InputSimulatorCpp
 // Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.
@@ -8,6 +8,7 @@
 #define INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_WINDOWS_H
 
 #include <Windows.h>
+#include <WinUser.h>
 
 // Most was defined in `WinUser.h`
 /*
