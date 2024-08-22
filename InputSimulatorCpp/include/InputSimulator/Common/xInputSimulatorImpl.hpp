@@ -24,7 +24,7 @@ class XInputSimulatorImpl {
 public:
     XInputSimulatorImpl();
 
-    virtual ~XInputSimulatorImpl() {}
+    virtual ~XInputSimulatorImpl() = default;
 
     virtual void mouseMoveTo(int x, int y) = 0;
 

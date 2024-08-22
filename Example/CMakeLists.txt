@@ -1,7 +1,7 @@
 # Example/CMakeLists.txt
 # Author: Haomin Kong
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 
 project(InputSimulatorExample)
 
@@ -12,6 +12,7 @@ find_library(
         InputSimulatorCppLib NAMES
         InputSimulatorCore
 )
+include_directories(../InputSimulatorCpp/include)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

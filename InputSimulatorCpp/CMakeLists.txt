@@ -1,7 +1,7 @@
 # InputSimulatorCpp/CMakeLists.txt
 # Author: Haomin Kong
 
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 project(InputSimulatorCppLib VERSION 0.1.0 LANGUAGES CXX)
 set(NAME_CORE_LIB "InputSimulatorCore")
 
@@ -28,7 +28,6 @@ if (WIN32)
     set(PLATFORM_NAME "Windows")
 
     # find_library(USER_32 User32.Lib)
-
     # set(EXTRA_LIBS ${USER_32})
 endif (WIN32)
 
@@ -67,17 +66,7 @@ file(GLOB_RECURSE SOURCE_FILES
 
 include_directories(${INPUT_SIMULATOR_INCLUDE_DIRS})
 
-set(XInputSimulator_SOURCE_FILES
-        ./src/main.cpp
-
-        ${SOURCE_FILES}
-)
-
-# XInputSimulator executable(GitHub OpenSource Project)
-add_executable(XInputSimulator ${XInputSimulator_SOURCE_FILES})
-target_link_libraries(XInputSimulator ${EXTRA_LIBS})
-
-# InputSimulatorCppLib library(This Project)
+# Core Lib
 add_library(
         ${NAME_CORE_LIB} ${LIB_TYPE}
 
@@ -89,12 +78,13 @@ target_include_directories(${NAME_CORE_LIB} PUBLIC ${INPUT_SIMULATOR_LIB_HEADER_
 # Windows Extra Build Options
 if (WIN32)
     if (MINGW)
-        # set_target_properties(${NAME_CORE_LIB} PROPERTIES PREFIX "")
+        target_compile_options(${NAME_CORE_LIB} PRIVATE -std=c++11)
+        set_target_properties(${NAME_CORE_LIB} PROPERTIES PREFIX "")
     endif (MINGW)
 
     if (MSVC)
         target_compile_options(${NAME_CORE_LIB} PRIVATE /utf-8)
-        # set_target_properties(${NAME_CORE_LIB} PROPERTIES DEBUG_POSTFIX "d")
+        set_target_properties(${NAME_CORE_LIB} PROPERTIES DEBUG_POSTFIX "d")
     endif (MSVC)
 endif (WIN32)
 

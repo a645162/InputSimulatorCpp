@@ -28,26 +28,27 @@
 #elif __APPLE__
 #include "InputSimulator/Platform/macOS/xInputSimulatorImplMacOS.hpp"
 #elif _WIN32
+
 #include "InputSimulator/Platform/Windows/xInputSimulatorImplWindows.hpp"
+
 #endif
 
-class XInputSimulator
-{
+class XInputSimulator {
 private:
-    XInputSimulatorImpl *implementation;
+    XInputSimulatorImpl *implementation{};
 
-    XInputSimulator(){}
+    XInputSimulator() {}
 
 public:
-    XInputSimulator(XInputSimulator&) = delete;
-    void operator=(XInputSimulator&) = delete;
+    XInputSimulator(XInputSimulator &) = delete;
+
+    void operator=(XInputSimulator &) = delete;
 
     ~XInputSimulator() {
         delete implementation;
     }
 
-    static XInputSimulator & getInstance()
-    {
+    static XInputSimulator &getInstance() {
         static XInputSimulator instance;
 
 #ifdef __linux__
@@ -61,18 +62,27 @@ public:
     }
 
     void mouseMoveTo(int x, int y);
+
     void mouseMoveRelative(int x, int y);
+
     void mouseDown(int button);
+
     void mouseUp(int button);
+
     void mouseClick(int button);
+
     void mouseScrollX(int length);
+
     void mouseScrollY(int length);
 
     void keyDown(int key);
+
     void keyUp(int key);
+
     void keyClick(int key);
 
     int charToKeyCode(char key_char);
+
     void keySequence(const std::string &sequence);
 
     // mouse
