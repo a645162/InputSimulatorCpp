@@ -20,4 +20,8 @@
 
 #endif
 
+char ConvertUpperCaseToLowerCase(char key_char);
+
+char ConvertLowerCaseToUpperCase(char key_char);
+
 #endif // INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_H

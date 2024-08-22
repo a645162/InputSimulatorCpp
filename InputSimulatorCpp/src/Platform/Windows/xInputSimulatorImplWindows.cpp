@@ -28,6 +28,8 @@
 
 #include "InputSimulator/Platform/Windows/xInputSimulatorImplWindows.hpp"
 #include "InputSimulator/Utils/NotImplementedException.hpp"
+#include "InputSimulator/KeyboardKeyCode.hpp"
+#include "InputSimulator/Utils/TimeSleep.hpp"
 
 #include <Windows.h>
 
@@ -81,8 +83,9 @@ void XInputSimulatorImplWin::mouseUp(int button) {
 
 void XInputSimulatorImplWin::mouseClick(int button) {
     this->mouseDown(button);
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    TimeSleep(1);
     this->mouseUp(button);
+    TimeSleep(1);
 }
 
 void XInputSimulatorImplWin::mouseScrollX(int length) {
@@ -137,17 +140,40 @@ void XInputSimulatorImplWin::keyUp(int key) {
 
 void XInputSimulatorImplWin::keyClick(int key) {
     keyDown(key);
+    TimeSleep(1);
     keyUp(key);
+    TimeSleep(1);
 }
 
 int XInputSimulatorImplWin::charToKeyCode(char key_char) {
-    throw NotImplementedException();
+    // Convert to lower case
+    key_char = ConvertUpperCaseToLowerCase(key_char);
+
+    /*
+     * VK_0 - VK_9 are the same as ASCII '0' - '9' (0x30 - 0x39)
+     * 0x3A - 0x40 : unassigned
+     * VK_A - VK_Z are the same as ASCII 'A' - 'Z' (0x41 - 0x5A)
+     */
+    if (key_char >= 'a' && key_char <= 'z') {
+        return key_char - 'a' + VK_A;
+    }
+
+    if (key_char >= '0' && key_char <= '9') {
+        return key_char - '0' + VK_0;
+    }
+
+    if (key_char == ' ') {
+        return VK_SPACE;
+    }
+
+    return -1;
 }
 
 void XInputSimulatorImplWin::keySequence(const std::string &sequence) {
     for (char ch: sequence) {
         int key_code = charToKeyCode(ch);
         keyClick(key_code);
+        TimeSleep(5);
     }
 }
 
