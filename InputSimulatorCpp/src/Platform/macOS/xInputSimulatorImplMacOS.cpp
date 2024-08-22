@@ -25,20 +25,21 @@
 
 #include <iostream>
 
-#include "InputSimulator/Utils/TimeSleep.hpp"
-
-//sleep
-#include <unistd.h>
-
 #include "InputSimulator/Platform/macOS/xInputSimulatorImplMacOS.hpp"
 #include "InputSimulator/Utils/NotImplementedException.hpp"
+#include "InputSimulator/KeyboardKeyCode.hpp"
+#include "InputSimulator/Utils/TimeSleep.hpp"
 
-//#include <QDebug>
+#define SLEEP_TIME_MS 1
 
 XInputSimulatorImplMacOs::XInputSimulatorImplMacOs() {
     //TODO
     //this->initCurrentMousePosition();
+
+#ifdef DEBUG_MODE
     std::cout << "Constructor " << std::endl;
+#endif
+
     this->currentX = 500;
     this->currentY = 500;
 
@@ -66,7 +67,9 @@ void XInputSimulatorImplMacOs::mouseMoveTo(int x, int y) {
             CGPointMake(x, y),
             kCGMouseButtonLeft);
 
-    std::cout << "mv: " << mouseEv << std::endl;
+#ifdef DEBUG_MODE
+    std::cout << "Move: " << mouseEv << std::endl;
+#endif
 
     CGEventPost(kCGHIDEventTap, mouseEv);
 
@@ -81,11 +84,13 @@ void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y) {
     int newY = this->currentY + y;
 
     if (newX < 0 || newX > this->displayX || newY < 0 || newY > this->displayY) {
-        std::cout << "Mouse moved beyond screensize." << std::endl;
+        std::cerr << "Mouse moved beyond screensize." << std::endl;
         return;
     }
 
+#ifdef DEBUG_MODE
     std::cout << "NewX: " << newX << " NewY: " << newY << std::endl;
+#endif
 
     CGEventRef mouseEv =
             CGEventCreateMouseEvent(
@@ -128,9 +133,9 @@ void XInputSimulatorImplMacOs::mouseUp(int button) {
 
 void XInputSimulatorImplMacOs::mouseClick(int button) {
     this->mouseDown(button);
-    TimeSleep(1);
+    TimeSleep(SLEEP_TIME_MS);
     this->mouseUp(button);
-    TimeSleep(1);
+    TimeSleep(SLEEP_TIME_MS);
 }
 
 void XInputSimulatorImplMacOs::mouseScrollX(int length) {
@@ -144,23 +149,25 @@ void XInputSimulatorImplMacOs::mouseScrollX(int length) {
     //length *= 100;
 
     for (int cnt = 0; cnt < length; cnt++) {
+#ifdef DEBUG_MODE
         std::cout << "Scroll X" << std::endl;
+#endif
 
         CGEventRef scrollEv = CGEventCreateScrollWheelEvent(
-                nullptr, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
-                2, //CGWheelCount 1 = y 2 = xy 3 = xyz
+                nullptr, kCGScrollEventUnitLine, // kCGScrollEventUnitLine //kCGScrollEventUnitPixel
+                2, //CGWheelCount 1 = y; 2 = xy; 3 = xyz
                 0,
-                scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behaviour
+                scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behavior
 
         CGEventPost(kCGHIDEventTap, scrollEv);
 
         CFRelease(scrollEv);
-        //sleep(1);
+        TimeSleep(SLEEP_TIME_MS);
     }
 }
 
 void XInputSimulatorImplMacOs::mouseScrollY(int length) {
-    int scrollDirection = -1; // 1 down -1 up
+    int scrollDirection = -1; // 1 down; -1 up
 
     if (length < 0) {
         length *= -1;
@@ -170,17 +177,19 @@ void XInputSimulatorImplMacOs::mouseScrollY(int length) {
     //length *= 100;
 
     for (int cnt = 0; cnt < length; cnt++) {
+#ifdef DEBUG_MODE
         std::cout << "Scroll Y" << std::endl;
+#endif
 
         CGEventRef scrollEv = CGEventCreateScrollWheelEvent(
-                nullptr, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
-                1, //CGWheelCount 1 = y 2 = xy 3 = xyz
+                nullptr, kCGScrollEventUnitLine, // kCGScrollEventUnitLine //kCGScrollEventUnitPixel
+                1, //CGWheelCount 1 = y; 2 = xy; 3 = xyz
                 scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behavior
 
         CGEventPost(kCGHIDEventTap, scrollEv);
 
         CFRelease(scrollEv);
-        //sleep(1);
+        TimeSleep(SLEEP_TIME_MS);
     }
 }
 
@@ -199,12 +208,14 @@ void XInputSimulatorImplMacOs::keyUp(int key) {
 }
 
 void XInputSimulatorImplMacOs::keyClick(int key) {
+#ifdef DEBUG_MODE
     std::cout << "Keyboard Key Click: " << key << std::endl;
+#endif
 
     this->keyDown(key);
-    TimeSleep(1);
+    TimeSleep(SLEEP_TIME_MS);
     this->keyUp(key);
-    TimeSleep(1);
+    TimeSleep(SLEEP_TIME_MS);
 }
 
 CFStringRef XInputSimulatorImplMacOs::createStringForKey(CGKeyCode keyCode) {
@@ -280,24 +291,35 @@ int XInputSimulatorImplMacOs::charToKeyCode(char key_char) {
     return code;
 }
 
-char UpperToLower(char c) {
-    if (c >= 'A' && c <= 'Z') {
-        return static_cast<char>(c + ('a' - 'A'));
-    }
-
-    return c;
-}
-
 void XInputSimulatorImplMacOs::keySequence(const std::string &sequence) {
+#ifdef DEBUG_MODE
     std::cout << "Key sequence: " << sequence << std::endl;
+#endif
 
     for (const char c: sequence) {
+        const bool isUpper = isupper(c);
+        int keyCode = this->charToKeyCode(ConvertUpperCaseToLowerCase(c));
+
+#ifdef DEBUG_MODE
         std::cout << "Char: " << c << std::endl;
-        int keyCode = this->charToKeyCode(UpperToLower(c));
-        std::cout << "key code: " << keyCode << std::endl;
-        this->keyClick(keyCode);
+        std::cout << "Key Code: " << keyCode << std::endl;
         std::cout << std::endl;
-        TimeSleep(5);
+#endif
+
+        if (isUpper) {
+            // Upper Case
+            this->keyDown(kVK_Shift);
+            TimeSleep(SLEEP_TIME_MS);
+            this->keyClick(keyCode);
+            TimeSleep(SLEEP_TIME_MS);
+            this->keyUp(kVK_Shift);
+            TimeSleep(SLEEP_TIME_MS);
+        } else {
+            // Lower Case
+            this->keyClick(keyCode);
+        }
+
+        TimeSleep(SLEEP_TIME_MS);
     }
 }
 

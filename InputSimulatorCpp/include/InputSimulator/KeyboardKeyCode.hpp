@@ -13,10 +13,12 @@
 #elif __APPLE__
 
 #include "Platform/macOS/KeyboardKeyCodeMacOS.hpp"
+#include "Platform/macOS/MacOSMappingToWindowsVK.hpp"
 
 #elif __linux__
 
 #include "Platform/Linux/KeyboardKeyCodeLinux.hpp"
+#include "Platform/Linux/LinuxMappingToWindowsVK.hpp"
 
 #endif
 

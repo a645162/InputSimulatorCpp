@@ -3,8 +3,8 @@
 // https://github.com/phracker/MacOSX-SDKs/blob/master/MacOSX10.6.sdk/System/Library/Frameworks/Carbon.framework/Versions/A/Frameworks/HIToolbox.framework/Versions/A/Headers/Events.h
 // https://stackoverflow.com/questions/3202629/where-can-i-find-a-list-of-mac-virtual-key-codes
 
-#ifndef INPUT_SIMULATOR_CPP_HI_TOOLBOX_EVENTS_KEYCODE_H
-#define INPUT_SIMULATOR_CPP_HI_TOOLBOX_EVENTS_KEYCODE_H
+#ifndef __EVENTS__
+#define __EVENTS__
 
 /*
  *  Summary:
@@ -154,4 +154,4 @@ enum {
     kVK_JIS_Kana                  = 0x68
 };
 
-#endif // INPUT_SIMULATOR_CPP_HI_TOOLBOX_EVENTS_KEYCODE_H
+#endif // __EVENTS__

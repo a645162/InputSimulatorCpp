@@ -8,7 +8,7 @@
 #ifndef INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_MACOS_H
 #define INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_MACOS_H
 
-#include "MacOsNativeKeyboardKeyCode.hpp"
+#include "MacOSNativeKeyboardKeyCode.hpp"
 
 #endif // INPUT_SIMULATOR_CPP_KEYBOARD_KEY_CODE_MACOS_H
 

@@ -42,7 +42,7 @@ private:
 
     void initCurrentMousePosition();
 
-    static static CFStringRef createStringForKey(CGKeyCode keyCode);
+    static CFStringRef createStringForKey(CGKeyCode keyCode);
 
 public:
     XInputSimulatorImplMacOs();
