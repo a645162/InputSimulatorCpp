@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "InputSimulator/xInputSimulator.hpp"
-#include "InputSimulator/Platform/Windows/WindowsKeyboardExtra.hpp"
+#include "InputSimulator/KeyboardKeyCode.hpp"
 #include "InputSimulator/Utils/TimeSleep.hpp"
 
 int main() {
@@ -45,6 +45,11 @@ int main() {
     std::cout << std::endl;
     TimeSleepSeconds();
     sim.keySequence(" Simple sentence Here 123 ");
+
+    // Ctrl+A
+    sim.keyDown(KEY_COMMAND);
+    sim.keyClick(KEY_A);
+    sim.keyUp(KEY_COMMAND);
 #elif _WIN32
     // Ctrl+A
     sim.keyDown(VK_CONTROL);
