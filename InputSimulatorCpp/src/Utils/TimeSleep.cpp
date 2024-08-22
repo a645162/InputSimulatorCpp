@@ -6,19 +6,36 @@
 #include "InputSimulator/Utils/TimeSleep.hpp"
 
 #ifdef __linux__
-//sleep
+
 #include <unistd.h>
+
 #elif __APPLE__
-//sleep
+
 #include <unistd.h>
+
 #elif _WIN32
-//sleep
+
 #include <windows.h>
 
 #endif
 
-void TimeSleep(int seconds) {
-    //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+#include <chrono>
+#include <thread>
+
+void TimeSleep(long ms) {
+#if defined(__linux__) || defined(__APPLE__)
+    usleep(ms * 1000);
+#elif defined(_WIN32)
+    Sleep(ms);
+#endif
+}
+
+// C++ 11
+void TimeSleepStd(long ms) {
+    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
+
+void TimeSleepSeconds(int seconds) {
 #ifdef __linux__
     sleep(seconds);
 #elif __APPLE__

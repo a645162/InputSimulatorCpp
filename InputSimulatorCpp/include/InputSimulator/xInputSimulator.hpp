@@ -24,9 +24,13 @@
 #include "InputSimulator/Utils/NotImplementedException.hpp"
 
 #ifdef __linux__
+
 #include "InputSimulator/Platform/Linux/xInputSimulatorImplLinux.hpp"
+
 #elif __APPLE__
+
 #include "InputSimulator/Platform/macOS/xInputSimulatorImplMacOS.hpp"
+
 #elif _WIN32
 
 #include "InputSimulator/Platform/Windows/xInputSimulatorImplWindows.hpp"

@@ -33,7 +33,7 @@ endif (WIN32)
 
 # Apple macOS
 if (APPLE)
-    set(PLATFORM_NAME "Windows")
+    set(PLATFORM_NAME "Apple macOS")
 
     find_library(APP_SERVICES ApplicationServices)
     find_library(CARBON Carbon)
@@ -45,7 +45,7 @@ endif (APPLE)
 
 # Linux X11(X.Org)
 if (LINUX)
-    set(PLATFORM_NAME "Windows")
+    set(PLATFORM_NAME "Linux")
 
     find_library(X_11 X11)
     find_library(X_TST Xtst)

@@ -14,36 +14,36 @@ int main() {
     XInputSimulator &sim = XInputSimulator::getInstance();
 
     std::cout << "Mouse Simulation:" << std::endl;
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseMoveTo(500, 400);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseMoveRelative(400, -100);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseDown(XIS::LEFT_MOUSE_BUTTON);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseMoveRelative(0, 300);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseUp(XIS::LEFT_MOUSE_BUTTON);
-    TimeSleep();
+    TimeSleepSeconds();
     //scroll down and up
     sim.mouseScrollY(10);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseScrollY(-10);
     //scroll left and right
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseScrollX(10);
-    TimeSleep();
+    TimeSleepSeconds();
     sim.mouseScrollX(-10);
 
     std::cout << "Keyboard Simulation:" << std::endl;
 #if defined(__linux__) || defined(__APPLE__)
     char anA = 'a';
-    std::cout << "a: " << (int)anA << " " << sim.charToKeyCode(anA) << std::endl;
+    std::cout << "a: " << (int) anA << " " << sim.charToKeyCode(anA) << std::endl;
     std::cout << std::endl;
-    TimeSleep();
+    TimeSleepSeconds();
     sim.keyClick(sim.charToKeyCode(anA));
     std::cout << std::endl;
-    TimeSleep();
+    TimeSleepSeconds();
     sim.keySequence(" Simple sentence Here 123 ");
 #elif _WIN32
     // Ctrl+A
@@ -52,7 +52,7 @@ int main() {
     sim.keyUp(VK_CONTROL);
 #endif
 
-    TimeSleep();
+    TimeSleepSeconds();
 
     std::cout << "Done!" << std::endl;
 

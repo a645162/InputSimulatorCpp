@@ -25,6 +25,8 @@
 
 #include <iostream>
 
+#include "InputSimulator/Utils/TimeSleep.hpp"
+
 //sleep
 #include <unistd.h>
 
@@ -33,11 +35,10 @@
 
 //#include <QDebug>
 
-XInputSimulatorImplMacOs::XInputSimulatorImplMacOs()
-{
+XInputSimulatorImplMacOs::XInputSimulatorImplMacOs() {
     //TODO
     //this->initCurrentMousePosition();
-    std::cout << "constructor " << std::endl;
+    std::cout << "Constructor " << std::endl;
     this->currentX = 500;
     this->currentY = 500;
 
@@ -52,20 +53,18 @@ XInputSimulatorImplMacOs::XInputSimulatorImplMacOs()
 
 //}
 
-void XInputSimulatorImplMacOs::initCurrentMousePosition()
-{
+void XInputSimulatorImplMacOs::initCurrentMousePosition() {
     throw NotImplementedException();
 }
 
-void XInputSimulatorImplMacOs::mouseMoveTo(int x, int y)
-{
+void XInputSimulatorImplMacOs::mouseMoveTo(int x, int y) {
 
     //TODO screen check see moveRelative
 
     CGEventRef mouseEv = CGEventCreateMouseEvent(
-                NULL, kCGEventMouseMoved,
-                CGPointMake(x, y),
-                kCGMouseButtonLeft);
+            nullptr, kCGEventMouseMoved,
+            CGPointMake(x, y),
+            kCGMouseButtonLeft);
 
     std::cout << "mv: " << mouseEv << std::endl;
 
@@ -77,23 +76,23 @@ void XInputSimulatorImplMacOs::mouseMoveTo(int x, int y)
     this->currentY = y;
 }
 
-void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y)
-{
+void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y) {
     int newX = this->currentX + x;
     int newY = this->currentY + y;
 
-    if(newX < 0 || newX > this->displayX || newY < 0 || newY > this->displayY )
-    {
-        std::cout << "mouse moved beyound screensize." << std::endl;
+    if (newX < 0 || newX > this->displayX || newY < 0 || newY > this->displayY) {
+        std::cout << "Mouse moved beyond screensize." << std::endl;
         return;
     }
 
-    std::cout << "newx: " << newX << " newy: " << newY << std::endl;
+    std::cout << "NewX: " << newX << " NewY: " << newY << std::endl;
 
-    CGEventRef mouseEv = CGEventCreateMouseEvent(
-                NULL, kCGEventMouseMoved,
-                CGPointMake(newX, newY),
-                kCGMouseButtonLeft);
+    CGEventRef mouseEv =
+            CGEventCreateMouseEvent(
+                    nullptr, kCGEventMouseMoved,
+                    CGPointMake(newX, newY),
+                    kCGMouseButtonLeft
+            );
 
     CGEventPost(kCGHIDEventTap, mouseEv);
 
@@ -103,57 +102,55 @@ void XInputSimulatorImplMacOs::mouseMoveRelative(int x, int y)
     this->currentY = newY;
 }
 
-void XInputSimulatorImplMacOs::mouseDown(int button)
-{
-    CGEventRef mouseEv = CGEventCreateMouseEvent(
-                NULL, kCGEventLeftMouseDown,
-                CGPointMake(this->currentX, this->currentY),
-                kCGMouseButtonLeft); // use int buttn from parameter
-
-    CGEventPost(kCGHIDEventTap, mouseEv);
-
-    CFRelease(mouseEv);
-
-}
-
-void XInputSimulatorImplMacOs::mouseUp(int button)
-{
-    CGEventRef mouseEv = CGEventCreateMouseEvent(
-                NULL, kCGEventLeftMouseUp,
-                CGPointMake(this->currentX, this->currentY),
-                kCGMouseButtonLeft); // use int buttn from parameter
+void XInputSimulatorImplMacOs::mouseDown(int button) {
+    CGEventRef mouseEv =
+            CGEventCreateMouseEvent(
+                    nullptr, kCGEventLeftMouseDown,
+                    CGPointMake(this->currentX, this->currentY),
+                    kCGMouseButtonLeft
+            ); // use int button from parameter
 
     CGEventPost(kCGHIDEventTap, mouseEv);
 
     CFRelease(mouseEv);
 }
 
-void XInputSimulatorImplMacOs::mouseClick(int button)
-{
+void XInputSimulatorImplMacOs::mouseUp(int button) {
+    CGEventRef mouseEv = CGEventCreateMouseEvent(
+            nullptr, kCGEventLeftMouseUp,
+            CGPointMake(this->currentX, this->currentY),
+            kCGMouseButtonLeft); // use int button from parameter
+
+    CGEventPost(kCGHIDEventTap, mouseEv);
+
+    CFRelease(mouseEv);
+}
+
+void XInputSimulatorImplMacOs::mouseClick(int button) {
     this->mouseDown(button);
+    TimeSleep(1);
     this->mouseUp(button);
+    TimeSleep(1);
 }
 
-void XInputSimulatorImplMacOs::mouseScrollX(int length)
-{
+void XInputSimulatorImplMacOs::mouseScrollX(int length) {
     int scrollDirection = -1; // 1 left -1 right
 
-    if(length < 0){
+    if (length < 0) {
         length *= -1;
         scrollDirection *= -1;
     }
 
     //length *= 100;
 
-    for(int cnt = 0; cnt < length; cnt++){
+    for (int cnt = 0; cnt < length; cnt++) {
+        std::cout << "Scroll X" << std::endl;
 
-        std::cout << "scroll y mac" << std::endl;
-
-        CGEventRef scrollEv = CGEventCreateScrollWheelEvent (
-                    NULL, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
-                    2, //CGWheelCount 1 = y 2 = xy 3 = xyz
-                    0,
-                    scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behaviour
+        CGEventRef scrollEv = CGEventCreateScrollWheelEvent(
+                nullptr, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
+                2, //CGWheelCount 1 = y 2 = xy 3 = xyz
+                0,
+                scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behaviour
 
         CGEventPost(kCGHIDEventTap, scrollEv);
 
@@ -162,25 +159,23 @@ void XInputSimulatorImplMacOs::mouseScrollX(int length)
     }
 }
 
-void XInputSimulatorImplMacOs::mouseScrollY(int length)
-{
+void XInputSimulatorImplMacOs::mouseScrollY(int length) {
     int scrollDirection = -1; // 1 down -1 up
 
-    if(length < 0){
+    if (length < 0) {
         length *= -1;
         scrollDirection *= -1;
     }
 
     //length *= 100;
 
-    for(int cnt = 0; cnt < length; cnt++){
+    for (int cnt = 0; cnt < length; cnt++) {
+        std::cout << "Scroll Y" << std::endl;
 
-        std::cout << "scroll y mac" << std::endl;
-
-        CGEventRef scrollEv = CGEventCreateScrollWheelEvent (
-                    NULL, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
-                    1, //CGWheelCount 1 = y 2 = xy 3 = xyz
-                    scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behaviour
+        CGEventRef scrollEv = CGEventCreateScrollWheelEvent(
+                nullptr, kCGScrollEventUnitLine,  // kCGScrollEventUnitLine  //kCGScrollEventUnitPixel
+                1, //CGWheelCount 1 = y 2 = xy 3 = xyz
+                scrollDirection); // length of scroll from -10 to 10 higher values lead to undef behavior
 
         CGEventPost(kCGHIDEventTap, scrollEv);
 
@@ -189,108 +184,120 @@ void XInputSimulatorImplMacOs::mouseScrollY(int length)
     }
 }
 
-void XInputSimulatorImplMacOs::keyDown(int key)
-{
-    CGKeyCode keycode = key;    
-    CGEventRef commandDown = CGEventCreateKeyboardEvent(NULL, keycode, true);
+void XInputSimulatorImplMacOs::keyDown(int key) {
+    CGKeyCode keycode = key;
+    CGEventRef commandDown = CGEventCreateKeyboardEvent(nullptr, keycode, true);
     CGEventPost(kCGAnnotatedSessionEventTap, commandDown);
     CFRelease(commandDown);
 }
 
-void XInputSimulatorImplMacOs::keyUp(int key)
-{
+void XInputSimulatorImplMacOs::keyUp(int key) {
     CGKeyCode keycode = key;
-    CGEventRef commandUp = CGEventCreateKeyboardEvent(NULL, keycode, false);
+    CGEventRef commandUp = CGEventCreateKeyboardEvent(nullptr, keycode, false);
     CGEventPost(kCGAnnotatedSessionEventTap, commandUp);
     CFRelease(commandUp);
 }
 
-void XInputSimulatorImplMacOs::keyClick(int key)
-{
-    std::cout << "key click: " << key << std::endl;
-    
+void XInputSimulatorImplMacOs::keyClick(int key) {
+    std::cout << "Keyboard Key Click: " << key << std::endl;
+
     this->keyDown(key);
+    TimeSleep(1);
     this->keyUp(key);
+    TimeSleep(1);
 }
 
-CFStringRef XInputSimulatorImplMacOs::createStringForKey(CGKeyCode keyCode)
-{
+CFStringRef XInputSimulatorImplMacOs::createStringForKey(CGKeyCode keyCode) {
     TISInputSourceRef currentKeyboard = TISCopyCurrentKeyboardInputSource();
     //CFDataRef layoutData = TISGetInputSourceProperty(currentKeyboard, kTISPropertyUnicodeKeyLayoutData);
-    CFDataRef layoutData = (CFDataRef)TISGetInputSourceProperty(currentKeyboard, kTISPropertyUnicodeKeyLayoutData);
-    
-    const UCKeyboardLayout *keyboardLayout = (const UCKeyboardLayout *)CFDataGetBytePtr(layoutData);
-    
+    auto layoutData = (CFDataRef) TISGetInputSourceProperty(
+            currentKeyboard, kTISPropertyUnicodeKeyLayoutData
+    );
+
+    const auto *keyboardLayout = (const UCKeyboardLayout *) CFDataGetBytePtr(layoutData);
+
     UInt32 keysDown = 0;
     UniChar chars[4];
     UniCharCount realLength;
-    
-    UCKeyTranslate(keyboardLayout,
-                   keyCode,
-                   kUCKeyActionDisplay,
-                   0,
-                   LMGetKbdType(),
-                   kUCKeyTranslateNoDeadKeysBit,
-                   &keysDown,
-                   sizeof(chars) / sizeof(chars[0]),
-                   &realLength,
-                   chars);
-    
+
+    UCKeyTranslate(
+            keyboardLayout,
+            keyCode,
+            kUCKeyActionDisplay,
+            0,
+            LMGetKbdType(),
+            kUCKeyTranslateNoDeadKeysBit,
+            &keysDown,
+            sizeof(chars) / sizeof(chars[0]),
+            &realLength,
+            chars
+    );
+
     CFRelease(currentKeyboard);
-    
+
     return CFStringCreateWithCharacters(kCFAllocatorDefault, chars, 1);
-    
-    return NULL;
 }
 
-int XInputSimulatorImplMacOs::charToKeyCode(char key_char)
-{
-    static CFMutableDictionaryRef charToCodeDict = NULL;
+int XInputSimulatorImplMacOs::charToKeyCode(char key_char) {
+    static CFMutableDictionaryRef charToCodeDict = nullptr;
     CGKeyCode code;
-    UniChar character = key_char;
-    CFStringRef charStr = NULL;
-    
+    UniChar character = static_cast<unsigned char>(key_char);
+    CFStringRef charStr;
+
     /* Generate table of keycodes and characters. */
-    if (charToCodeDict == NULL) {
+    if (charToCodeDict == nullptr) {
         size_t i;
-        charToCodeDict = CFDictionaryCreateMutable(kCFAllocatorDefault,
-                                                   128,
-                                                   &kCFCopyStringDictionaryKeyCallBacks,
-                                                   NULL);
-        if (charToCodeDict == NULL) return UINT16_MAX;
-        
-        /* Loop through every keycode (0 - 127) to find its current mapping. */
+        charToCodeDict = CFDictionaryCreateMutable(
+                kCFAllocatorDefault,
+                128,
+                &kCFCopyStringDictionaryKeyCallBacks,
+                nullptr
+        );
+        if (charToCodeDict == nullptr) return UINT16_MAX;
+
+        /* Loop through every keycode (0-127) to find its current mapping. */
         for (i = 0; i < 128; ++i) {
-            CFStringRef string = createStringForKey((CGKeyCode)i);
-            if (string != NULL) {
-                CFDictionaryAddValue(charToCodeDict, string, (const void *)i);
+            CFStringRef string = createStringForKey((CGKeyCode) i);
+            if (string != nullptr) {
+                CFDictionaryAddValue(charToCodeDict, string, (const void *) i);
                 CFRelease(string);
             }
         }
     }
-    
+
     charStr = CFStringCreateWithCharacters(kCFAllocatorDefault, &character, 1);
-    
+
     /* Our values may be NULL (0), so we need to use this function. */
-    if (!CFDictionaryGetValueIfPresent(charToCodeDict,
-                                       charStr,
-                                       (const void **)&code)) {
+    if (!CFDictionaryGetValueIfPresent(
+            charToCodeDict,
+            charStr,
+            (const void **) &code)
+            ) {
         code = UINT16_MAX;
     }
-    
+
     CFRelease(charStr);
     return code;
 }
-void XInputSimulatorImplMacOs::keySequence(const std::string &sequence)
-{
-    std::cout << "key seq: " << sequence << std::endl;
-    
-    for(const char c : sequence) {
-        std::cout << "cahr: " << c << std::endl;
-        int keyCode = this->charToKeyCode(c);
+
+char UpperToLower(char c) {
+    if (c >= 'A' && c <= 'Z') {
+        return static_cast<char>(c + ('a' - 'A'));
+    }
+
+    return c;
+}
+
+void XInputSimulatorImplMacOs::keySequence(const std::string &sequence) {
+    std::cout << "Key sequence: " << sequence << std::endl;
+
+    for (const char c: sequence) {
+        std::cout << "Char: " << c << std::endl;
+        int keyCode = this->charToKeyCode(UpperToLower(c));
         std::cout << "key code: " << keyCode << std::endl;
         this->keyClick(keyCode);
         std::cout << std::endl;
+        TimeSleep(5);
     }
 }
 

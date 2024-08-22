@@ -6,6 +6,10 @@
 #ifndef INPUT_SIMULATOR_CPP_TIME_SLEEP_H
 #define INPUT_SIMULATOR_CPP_TIME_SLEEP_H
 
-void TimeSleep(int seconds = 1);
+void TimeSleep(long ms = 1000);
+
+void TimeSleepStd(long ms = 1000);
+
+void TimeSleepSeconds(int seconds = 1);
 
 #endif // INPUT_SIMULATOR_CPP_TIME_SLEEP_H
