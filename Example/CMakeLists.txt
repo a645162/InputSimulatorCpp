@@ -5,18 +5,24 @@ cmake_minimum_required(VERSION 3.10)
 
 project(InputSimulatorExample)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-find_library(InputSimulatorCppLib InputSimulatorCppLib)
-include_directories(${INPUT_SIMULATOR_INCLUDE_DIRS})
+find_library(
+        InputSimulatorCppLib NAMES
+        InputSimulatorCore
+)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_executable(
         ${PROJECT_NAME}
 
         ./src/main.cpp
 
-        ./include/library.hpp
         ./src/library.cpp
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE InputSimulatorCppLib)
+target_link_libraries(
+        ${PROJECT_NAME} PRIVATE
+        InputSimulatorCore
+)
