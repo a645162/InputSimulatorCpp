@@ -1,4 +1,9 @@
 #########################
+# Jetbrains Plugin
+
+GitLink.xml
+
+#########################
 # CMake
 CMakeLists.txt.user
 CMakeCache.txt
