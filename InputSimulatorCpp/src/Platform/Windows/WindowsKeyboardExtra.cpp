@@ -5,6 +5,6 @@
 
 #ifdef _WIN32
 
-#include "WindowsKeyboardExtra.hpp"
+#include "InputSimulator/Platform/Windows/WindowsKeyboardExtra.hpp"
 
 #endif // _WIN32

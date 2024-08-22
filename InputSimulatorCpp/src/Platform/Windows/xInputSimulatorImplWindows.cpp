@@ -26,8 +26,8 @@
 
 #ifdef _WIN32
 
-#include "xInputSimulatorImplWindows.hpp"
-#include "../../Utils/NotImplementedException.hpp"
+#include "InputSimulator/Platform/Windows/xInputSimulatorImplWindows.hpp"
+#include "InputSimulator/Utils/NotImplementedException.hpp"
 
 #include <Windows.h>
 

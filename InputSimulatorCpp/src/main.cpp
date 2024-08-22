@@ -17,9 +17,9 @@
 
 #include <iostream>
 
-#include "xInputSimulator.hpp"
-#include "Platform/Windows/WindowsKeyboardExtra.hpp"
-#include "Utils/TimeSleep.hpp"
+#include "InputSimulator/xInputSimulator.hpp"
+#include "InputSimulator/Platform/Windows/WindowsKeyboardExtra.hpp"
+#include "InputSimulator/Utils/TimeSleep.hpp"
 
 int main() {
     std::cout << "Hello World!" << std::endl;

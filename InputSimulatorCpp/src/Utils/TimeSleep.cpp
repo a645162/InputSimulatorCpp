@@ -3,7 +3,7 @@
 // https://github.com/a645162/InputSimulatorCpp
 // Notice: This project and `XInputSimulator` are licensed under the GPL-3.0 License.
 
-#include "TimeSleep.hpp"
+#include "InputSimulator/Utils/TimeSleep.hpp"
 
 #ifdef __linux__
 //sleep

@@ -28,8 +28,8 @@
 //sleep
 #include <unistd.h>
 
-#include "xInputSimulatorImplMacOS.hpp"
-#include "../../Utils/NotImplementedException.hpp"
+#include "InputSimulator/Platform/macOS/xInputSimulatorImplMacOS.hpp"
+#include "InputSimulator/Utils/NotImplementedException.hpp"
 
 //#include <QDebug>
 

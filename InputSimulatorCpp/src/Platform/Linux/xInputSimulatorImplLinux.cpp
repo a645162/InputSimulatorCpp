@@ -25,8 +25,9 @@
 
 #include <unistd.h> //usleep
 
-#include "xInputSimulatorImplLinux.hpp"
-#include "../../Utils/NotImplementedException.hpp"
+#include "InputSimulator/Platform/Linux/xInputSimulatorImplLinux.hpp"
+#include "InputSimulator/Utils/NotImplementedException.hpp"
+
 #include <iostream>
 
 //memset
@@ -201,6 +202,5 @@ void XInputSimulatorImplLinux::keySequence(const std::string &sequence)
     }
 
 }
-
 
 #endif // __linux__

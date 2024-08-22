@@ -29,7 +29,7 @@
 #ifndef X_INPUT_SIMULATOR_IMPL_WINDOWS_H
 #define X_INPUT_SIMULATOR_IMPL_WINDOWS_H
 
-#include "../../Common/xInputSimulatorImpl.hpp"
+#include "InputSimulator/Common/xInputSimulatorImpl.hpp"
 
 class XInputSimulatorImplWin : public XInputSimulatorImpl {
 private:

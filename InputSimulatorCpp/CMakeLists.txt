@@ -1,16 +1,24 @@
+# InputSimulatorCpp/CMakeLists.txt
+# Author: Haomin Kong
+
 cmake_minimum_required(VERSION 3.10)
-project(InputSimulatorCppLib)
+project(InputSimulatorCppLib VERSION 0.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
+set(INPUT_SIMULATOR_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(INPUT_SIMULATOR_SOURCE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/src")
+
+#message(STATUS "Header Files: ${INPUT_SIMULATOR_INCLUDE_DIRS}")
+#message(STATUS "Source Files: ${INPUT_SIMULATOR_SOURCE_DIRS}")
 
 option(INPUT_SIMULATOR_BUILD_STATIC_LIB "Build static library." OFF)
 
-if (INPUT_SIMULATOR_BUILD_STATIC_LIB)
-    set(LIB_TYPE "STATIC")
-else ()
+if (BUILD_SHARED_LIBS)
     set(LIB_TYPE "SHARED")
+else ()
+    set(LIB_TYPE "STATIC")
 endif ()
 
 # Default Platform Name
@@ -51,11 +59,14 @@ endif (LINUX)
 message(STATUS "Platform: ${PLATFORM_NAME}")
 
 file(GLOB_RECURSE SOURCE_FILES
-        "${SOURCE_DIR}/*.cpp"
-        "${SOURCE_DIR}/*.hpp"
-        "${SOURCE_DIR}/*.c"
-        "${SOURCE_DIR}/*.h"
+        "${INPUT_SIMULATOR_SOURCE_DIRS}/*.cpp"
+        "${INPUT_SIMULATOR_SOURCE_DIRS}/*.hpp"
+        "${INPUT_SIMULATOR_SOURCE_DIRS}/*.c"
+        "${INPUT_SIMULATOR_SOURCE_DIRS}/*.h"
 )
+#message(STATUS "Source Files: ${SOURCE_FILES}")
+
+include_directories(${INPUT_SIMULATOR_INCLUDE_DIRS})
 
 set(XInputSimulator_SOURCE_FILES
         ./src/main.cpp
@@ -71,18 +82,25 @@ target_link_libraries(XInputSimulator ${EXTRA_LIBS})
 add_library(
         ${PROJECT_NAME} ${LIB_TYPE}
 
-        ./src/library.cpp
-        ./src/library.hpp
+        ${SOURCE_FILES}
 )
 target_link_libraries(${PROJECT_NAME} ${EXTRA_LIBS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${INPUT_SIMULATOR_LIB_HEADER_DIR})
 
 # Windows Extra Build Options
-if (WIN32)
-    if (MINGW)
-        set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-    endif (MINGW)
+#if (WIN32)
+#    if (MINGW)
+#        set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
+#    endif (MINGW)
+#
+#    if (MSVC)
+#        set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+#    endif (MSVC)
+#endif (WIN32)
 
-    if (MSVC)
-        set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
-    endif (MSVC)
-endif (WIN32)
+set(CPACK_PACKAGE_NAME "InputSimulatorCppLib")
+set(CPACK_PACKAGE_VENDOR "Haomin Kong")
+set(CPACK_PACKAGE_VERSION "0.1.0")
+set(CPACK_PACKAGE_DESCRIPTION_FILE ${PROJECT_SOURCE_DIR}/README.md)
+set(CPACK_NSIS_MODIFY_PATH ON)
+include(CPack)

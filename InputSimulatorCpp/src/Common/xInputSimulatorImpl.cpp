@@ -16,7 +16,7 @@
 //    along with XInputSimulator.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#include "xInputSimulatorImpl.hpp"
+#include "InputSimulator/Common/xInputSimulatorImpl.hpp"
 
 XInputSimulatorImpl::XInputSimulatorImpl() {
 }
